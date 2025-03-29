@@ -2,12 +2,13 @@
 // Valid moves are "up", "down", "left", or "right"
 // See https://docs.battlesnake.com/api/example-move for available data
 
-import { checkWallCollision } from '../logic/collision/boundaries';
-import { checkSelfCollision } from '../logic/collision/selfCollision';
-import { checkOtherSnakesCollision } from '../logic/collision/otherSnakes';
-
+import checkWallCollision from '../logic/collision/boundaries.js';
+import checkSelfCollision from '../logic/collision/selfCollision.js';
+import checkOtherSnakesCollision from '../logic/collision/otherSnakes.js';
+import chalk from 'chalk';
 
 export default function move(gameState) {
+  printBoard(gameState.board);
   // Initialize safe moves
   let isMoveSafe = {
     up: true,
@@ -72,6 +73,30 @@ export default function move(gameState) {
 
 
 
+function printBoard(board) {
+  const width = board.width;
+  const height = board.height;
+  let grid = Array.from({ length: height }, () => Array(width).fill('.'));
+
+  // Mark food on the board
+  board.food.forEach(({ x, y }) => {
+    grid[y][x] = chalk.red('F');
+  });
+
+  // Mark snakes on the board
+  board.snakes.forEach(snake => {
+    snake.body.forEach(({ x, y }, index) => {
+      if (index === 0) {
+        grid[y][x] = chalk.green('H'); // Snake head
+      } else {
+        grid[y][x] = chalk.blue('S'); // Snake body
+      }
+    });
+  });
+
+  // Print the board
+  console.log('\n' + grid.map(row => row.join(' ')).join('\n'));
+}
 
 
    // TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
