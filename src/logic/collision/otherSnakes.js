@@ -1,5 +1,5 @@
 
-export function checkOtherSnakesCollision(snakeHead, otherSnakes) {
+export default function checkOtherSnakesCollision(snakeHead, otherSnakes) {
     for (let i = 0; i < otherSnakes.length; i++) {
         const otherSnake = otherSnakes[i];
         for (let j = 0; j < otherSnake.body.length; j++) {
