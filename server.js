@@ -1,9 +1,10 @@
 import express from 'express';
 
-export default function runServer(handlers) {
+export function runServer(handlers) {
   const app = express();
   app.use(express.json());
 
+  // Define the routes
   app.get("/", (req, res) => {
     res.send(handlers.info());
   });
@@ -23,8 +24,9 @@ export default function runServer(handlers) {
   });
 
   const port = process.env.PORT || 8000;
+  const host = '0.0.0.0'; 
 
-  app.listen(port, () => {
+  app.listen(port, host, () => {
     console.log(`Battlesnake API listening on port ${port}`);
   });
 }
