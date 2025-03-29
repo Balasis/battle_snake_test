@@ -1,6 +1,6 @@
 import express from 'express';
 
-export function runServer(handlers) {
+export default function runServer(handlers) {
   const app = express();
   app.use(express.json());
 
