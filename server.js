@@ -22,15 +22,15 @@ export default function runServer(handlers) {
     res.send("ok");
   });
 
-  app.use(function(req, res, next) {
-    res.set("Server", "battlesnake/replit/starter-snake-javascript");
-    next();
-  })
+  // app.use(function(req, res, next) {
+  //   res.set("Server", "battlesnake/replit/starter-snake-javascript");
+  //   next();
+  // })
 
-  const host = '0.0.0.0';
+  // const host = '0.0.0.0';
   const port = process.env.PORT || 8000;
 
-  app.listen(port, host, () => {
-    console.log(`Running Battlesnake at http://${host}:${port}...`)
+  app.listen(port, () => {
+    console.log(`Battlesnake API listening on port ${port}`);
   });
 }
