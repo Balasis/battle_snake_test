@@ -5,7 +5,7 @@ const initialGameState = {
     board: {
       width: 11,
       height: 11,
-      food: [{ x: 5, y: 6 }, { x: 2, y: 3 }],
+      food: [{ x: 5, y: 6 }, { x: 2, y: 3 },{ x: 1, y: 3 },{ x: 5, y: 3 }],
       snakes: [
         {
           id: 'snake1',
