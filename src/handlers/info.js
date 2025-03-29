@@ -4,11 +4,20 @@
 
 export default function info() {
     console.log("INFO");
+
+    const snakeAppearance = {
+      color: "#00FF00",  // Default snake color
+      headType: "bendr", // Head shape
+      tailType: "curled", // Tail shape
+    };
+
     return {
       apiversion: "1",
       author: "",       // TODO: Your Battlesnake Username
-      color: "#888888", // TODO: Choose color
-      head: "default",  // TODO: Choose head
-      tail: "default",  // TODO: Choose tail
+      color: snakeAppearance.color, // TODO: Choose color
+      head: snakeAppearance.headType,  // TODO: Choose head
+      tail: snakeAppearance.tailType,  // TODO: Choose tail
     };
   }
+
+
