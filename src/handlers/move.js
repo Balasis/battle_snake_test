@@ -78,18 +78,18 @@ function printBoard(board) {
   const height = board.height;
   let grid = Array.from({ length: height }, () => Array(width).fill('.'));
 
-  // Mark food on the board
+  // Mark food on the board with adjusted y-coordinate
   board.food.forEach(({ x, y }) => {
-    grid[y][x] = chalk.red('F');
+    grid[height - 1 - y][x] = chalk.red('F');
   });
 
-  // Mark snakes on the board
+  // Mark snakes on the board with adjusted y-coordinate
   board.snakes.forEach(snake => {
     snake.body.forEach(({ x, y }, index) => {
       if (index === 0) {
-        grid[y][x] = chalk.green('H'); // Snake head
+        grid[height - 1 - y][x] = chalk.green('H'); // Snake head
       } else {
-        grid[y][x] = chalk.blue('S'); // Snake body
+        grid[height - 1 - y][x] = chalk.blue('S'); // Snake body
       }
     });
   });
