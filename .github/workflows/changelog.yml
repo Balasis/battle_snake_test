@@ -3,45 +3,40 @@ name: Generate Changelog
 on:
   push:
     branches:
-      - main  # or your main branch
-  pull_request:
-    branches:
-      - main  # or your main branch
+      - main
+      - dev
 
 jobs:
   changelog:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure full history for proper changelog generation
 
-      - name: Install git-chglog
-        run: |
-          # Download the release file first
-          curl -L -o git-chglog_0.14.0_Linux_x86_64.tar.gz https://github.com/git-chglog/git-chglog/releases/download/v0.14.0/git-chglog_0.14.0_Linux_x86_64.tar.gz
-          
-          # Check if the file is in gzip format
-          file git-chglog_0.14.0_Linux_x86_64.tar.gz
-          
-          # Extract the file if it's valid
-          tar -xvzf git-chglog_0.14.0_Linux_x86_64.tar.gz
-          
-          # Move the binary to a proper location
-          sudo mv git-chglog /usr/local/bin
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-      - name: Generate changelog
-        run: |
-          git-chglog -o CHANGELOG.md --next-tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically provides this token
+      - name: Install conventional-changelog-cli
+        run: npm install -g conventional-changelog-cli
 
-      - name: Commit and push changelog
+      - name: Generate or update CHANGELOG.md
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          if [ -f CHANGELOG.md ]; then
+            echo "Updating existing CHANGELOG.md..."
+            conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+          else
+            echo "Creating new CHANGELOG.md..."
+            conventional-changelog -p angular -o CHANGELOG.md -r 0
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add CHANGELOG.md
-          git commit -m "chore: update changelog"
+          git commit -m "docs: update CHANGELOG.md" || echo "No changes to commit"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
