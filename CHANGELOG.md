@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/Balasis/battle_snake_test/compare/v1.1.1...v2.0.0) (2025-04-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* 3 whole dots at readMe
+
+### Features
+
+* 3 whole dots at readMe ([4a30e08](https://github.com/Balasis/battle_snake_test/commit/4a30e08bed260b8028f7e3fceacbfc9d402a23cf))
+
 ### [1.1.1](https://github.com/Balasis/battle_snake_test/compare/v1.1.0...v1.1.1) (2025-04-14)
 
 ## 1.1.0 (2025-04-14)
